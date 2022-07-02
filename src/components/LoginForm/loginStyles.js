@@ -21,17 +21,32 @@ export const FormContainer = styled.form`
   justify-content: center;
   align-items: center;
   border-radius: 7px;
+
+  @media screen and (min-width: 768px) {
+    width: 400px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 `
 export const WebsiteLogo = styled.img`
   height: 30px;
   width: 120px;
   margin-bottom: 22px;
 `
-export const LabelInputBoxContainer = styled.div`
+export const LabelInputBoxContainerUsername = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
+  margin-bottom: 20px;
+`
+
+export const LabelInputBoxContainerPassword = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 5px;
 `
 
 export const Label = styled.label`
@@ -50,6 +65,7 @@ export const InputBox = styled.input`
     font-weight: 400;
     font-family: 'Roboto';
     font-size: 15px;
+    opacity: 0.8;
   }
   padding-left: 8px;
   :focus {
@@ -57,11 +73,15 @@ export const InputBox = styled.input`
   }
   border-radius: 3px;
   background-color: transparent;
-  margin-bottom: 18px;
+
   font-weight: 400;
   font-family: 'Roboto';
   font-size: 15px;
   color: #7e858e;
+
+  @media screen and (min-width: 768px) {
+    height: 40px;
+  }
 `
 
 export const ShowPasswordContainer = styled.div`
@@ -79,7 +99,7 @@ export const CheckBox = styled.input`
 export const ShowPasswordLabel = styled(Label)`
   font-family: 'Roboto';
   font-weight: 400;
-  font-size: 17px;
+  font-size: 14px;
   color: ${props => (props.dark ? '#ffffff' : '#1e293b')};
   padding-top: 3px;
 `

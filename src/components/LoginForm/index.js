@@ -10,7 +10,8 @@ import {
   LoginBgContainer,
   FormContainer,
   WebsiteLogo,
-  LabelInputBoxContainer,
+  LabelInputBoxContainerUsername,
+  LabelInputBoxContainerPassword,
   Label,
   InputBox,
   ShowPasswordContainer,
@@ -93,7 +94,7 @@ class LoginForm extends Component {
           const {isDarkTheme} = value
 
           const renderUsername = () => (
-            <LabelInputBoxContainer>
+            <LabelInputBoxContainerUsername>
               <Label htmlFor="username" dark={isDarkTheme}>
                 USERNAME
               </Label>
@@ -105,11 +106,11 @@ class LoginForm extends Component {
                 value={username}
                 onChange={this.onChangeUsername}
               />
-            </LabelInputBoxContainer>
+            </LabelInputBoxContainerUsername>
           )
 
           const renderPassword = () => (
-            <LabelInputBoxContainer>
+            <LabelInputBoxContainerPassword>
               <Label htmlFor="password" dark={isDarkTheme}>
                 PASSWORD
               </Label>
@@ -121,7 +122,7 @@ class LoginForm extends Component {
                 value={password}
                 onChange={this.onChangePassword}
               />
-            </LabelInputBoxContainer>
+            </LabelInputBoxContainerPassword>
           )
 
           return (

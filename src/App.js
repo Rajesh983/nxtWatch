@@ -2,7 +2,9 @@ import './App.css'
 
 import LoginForm from './components/LoginForm'
 
+import Header from './components/Header'
+
 // Replace your code here
-const App = () => <LoginForm />
+const App = () => <Header />
 
 export default App
