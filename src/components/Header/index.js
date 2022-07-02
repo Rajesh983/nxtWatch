@@ -24,31 +24,47 @@ import {
 
 const Header = props => {
   const onClickLogout = () => {
-    console.log('Clicked')
+    const {history} = props
+    Cookies.remove('jwt_token')
+    history.replace('/login')
   }
 
   return (
     <ThemeContext.Consumer>
       {value => {
-        const {isDarkTheme} = value
+        const {isDarkTheme, changeTheme} = value
+
+        const onChangeTheme = () => {
+          changeTheme()
+        }
 
         return (
           <NavbarContainer dark={isDarkTheme}>
-            <WebsiteLogo
-              src={
-                isDarkTheme
-                  ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
-                  : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
-              }
-              alt="website logo"
-            />
+            <Link to="/">
+              <WebsiteLogo
+                src={
+                  isDarkTheme
+                    ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
+                    : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
+                }
+                alt="website logo"
+              />
+            </Link>
             <IconsContainer>
               {isDarkTheme ? (
-                <IconButton type="button" data-testid="theme">
+                <IconButton
+                  type="button"
+                  data-testid="theme"
+                  onClick={onChangeTheme}
+                >
                   <BiSun size="25px" color="#ffffff" />
                 </IconButton>
               ) : (
-                <IconButton type="button" data-testid="theme">
+                <IconButton
+                  type="button"
+                  data-testid="theme"
+                  onClick={onChangeTheme}
+                >
                   <IoMoon size="25px" />
                 </IconButton>
               )}
