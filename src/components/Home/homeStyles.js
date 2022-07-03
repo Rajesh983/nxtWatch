@@ -60,94 +60,67 @@ export const BannerHomeBgContainer = styled.div`
   display: flex;
   flex-direction: column;
 `
-
-export const SidebarContainer = styled.div`
-  display: none;
-
-  @media screen and (min-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 94vh;
-    align-items: center;
-    background-color: ${props => (props.dark ? ' #231f20' : '#ffffff')};
-    width: 300px;
-  }
+export const HomeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-grow: 1;
 `
 
-export const NavItemsListContainer = styled.ul`
-  list-style-type: none;
-  padding-left: 0;
-  background-color: transparent;
+export const ThumbnailsBgContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 20px;
   width: 100%;
 `
 
-export const NavItemContainer = styled.li`
+export const SearchBoxAndButtonContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
   align-items: center;
+  border: 1.5px solid #909090;
+  height: 28px;
 `
 
-export const NavItemText = styled.p`
-  color: ${props => (props.dark ? '#ffffff' : '#424242')};
-  text-decoration: none;
-  margin-left: 12px;
-  padding-top: 3px;
-
-  font-family: 'Roboto';
-  font-size: 14px;
-  font-weight: 500;
+export const SearchBox = styled.input`
+  background-color: transparent;
+  border-width: 0;
+  width: 230px;
+  @media screen and (min-width: 576px) {
+    width: 350px;
+  }
+  padding-left: 9px;
+  :focus {
+    outline-width: 0;
+  }
+  color: ${props => (props.dark ? '#ffffff' : '#909090')};
 `
 
-export const ContactInfoContainer = styled.div`
+export const SearchButton = styled.button`
+  background-color: ${props => (props.dark ? '#383838' : '#f9f9f9')};
+  border-width: 0;
+  border-left: 1.5px solid #909090;
+  height: 26px;
+  width: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-  padding-left: 20px;
-`
-export const ContactUsText = styled.p`
-  color: ${props => (props.dark ? '#ffffff' : '#231f20')};
-  font-family: 'Roboto';
-  font-size: 16px;
-  font-weight: 500;
-`
-
-export const ContactInfoLogosContainer = styled.div`
-  display: flex;
-  justify-content: space-evenly;
   align-items: center;
 `
 
-export const ContactLogoImage = styled.img`
-  height: 38px;
-  width: 38px;
-  margin-right: 8px;
+export const HomeVideosListContainer = styled.ul`
+  list-style-type: none;
+  padding-left: 0;
 `
 
-export const ContactInfoText = styled.p`
-  color: ${props => (props.dark ? '#ffffff' : '#231f20')};
-  font-family: 'Roboto';
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 24px;
-`
-export const NavButton = styled.button`
-  border-width: 0;
-  background-color: ${props => {
-    if (props.dark && props.activeBtn) {
-      return '#383838'
-    }
-    if (props.dark === false && props.activeBtn) {
-      return '#f9f9f9'
-    }
-    return 'transparent'
-  }};
+export const LoaderContainer = styled.div`
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  height: 36px;
-  padding-left: 18px;
+  max-width: 1000px;
 `
