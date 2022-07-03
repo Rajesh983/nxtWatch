@@ -75,3 +75,30 @@ export const LogoutDesktopButton = styled.button`
   padding-left: 12px;
   padding-right: 12px;
 `
+
+export const MenuItemsContainer = styled.ul`
+  list-style-type: none;
+  padding-left: 0;
+  background-color: ${props => (props.dark ? ' #231f20' : '#ffffff')};
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 20px;
+  padding-left: 30px;
+  display: ${props => (props.menu ? 'flex' : 'none')};
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+`
+
+export const MenuItem = styled.li`
+  color: ${props => (props.dark ? '#ffffff' : '#231f20')};
+  font-size: 14px;
+  font-family: 'Roboto';
+  font-weight: 400;
+  text-decoration: underline;
+  margin-bottom: 3px;
+`

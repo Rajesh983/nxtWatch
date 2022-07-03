@@ -20,6 +20,8 @@ import {
   ProfileLogoutDesktopContainer,
   ProfileImage,
   LogoutDesktopButton,
+  MenuItemsContainer,
+  MenuItem,
 } from './headerStyles'
 
 const Header = props => {
@@ -32,71 +34,111 @@ const Header = props => {
   return (
     <ThemeContext.Consumer>
       {value => {
-        const {isDarkTheme, changeTheme} = value
+        const {isDarkTheme, changeTheme, isMenuItems, showHideMenu} = value
 
         const onChangeTheme = () => {
           changeTheme()
         }
 
+        const onShowMenu = () => {
+          showHideMenu()
+        }
+
         return (
-          <NavbarContainer dark={isDarkTheme}>
-            <Link to="/">
-              <WebsiteLogo
-                src={
-                  isDarkTheme
-                    ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
-                    : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
-                }
-                alt="website logo"
-              />
-            </Link>
-            <IconsContainer>
-              {isDarkTheme ? (
-                <IconButton
-                  type="button"
-                  data-testid="theme"
-                  onClick={onChangeTheme}
-                >
-                  <BiSun size="25px" color="#ffffff" />
-                </IconButton>
-              ) : (
-                <IconButton
-                  type="button"
-                  data-testid="theme"
-                  onClick={onChangeTheme}
-                >
-                  <IoMoon size="25px" />
-                </IconButton>
-              )}
-
-              <MenuLogoutIconsContainer>
-                <FiMenu
-                  size="25px"
-                  color={isDarkTheme ? '#ffffff' : '#0f0f0f'}
+          <>
+            <NavbarContainer dark={isDarkTheme}>
+              <Link to="/">
+                <WebsiteLogo
+                  src={
+                    isDarkTheme
+                      ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
+                      : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
+                  }
+                  alt="website logo"
                 />
-                <LogoutIconButton type="button" onClick={onClickLogout}>
-                  <FiLogOut
-                    size="25px"
-                    color={isDarkTheme ? '#ffffff' : '#0f0f0f'}
+              </Link>
+              <IconsContainer>
+                {isDarkTheme ? (
+                  <IconButton
+                    type="button"
+                    data-testid="theme"
+                    onClick={onChangeTheme}
+                  >
+                    <BiSun size="25px" color="#ffffff" />
+                  </IconButton>
+                ) : (
+                  <IconButton
+                    type="button"
+                    data-testid="theme"
+                    onClick={onChangeTheme}
+                  >
+                    <IoMoon size="25px" />
+                  </IconButton>
+                )}
+
+                <MenuLogoutIconsContainer>
+                  <IconButton type="button" onClick={onShowMenu}>
+                    {' '}
+                    <FiMenu
+                      size="25px"
+                      color={isDarkTheme ? '#ffffff' : '#0f0f0f'}
+                    />
+                  </IconButton>
+                  <LogoutIconButton type="button" onClick={onClickLogout}>
+                    <FiLogOut
+                      size="25px"
+                      color={isDarkTheme ? '#ffffff' : '#0f0f0f'}
+                    />
+                  </LogoutIconButton>
+                </MenuLogoutIconsContainer>
+
+                <ProfileLogoutDesktopContainer>
+                  <ProfileImage
+                    src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png"
+                    alt="profile"
                   />
-                </LogoutIconButton>
-              </MenuLogoutIconsContainer>
+                  <LogoutDesktopButton
+                    type="button"
+                    dark={isDarkTheme}
+                    onClick={onClickLogout}
+                  >
+                    Logout
+                  </LogoutDesktopButton>
+                </ProfileLogoutDesktopContainer>
+              </IconsContainer>
+            </NavbarContainer>
 
-              <ProfileLogoutDesktopContainer>
-                <ProfileImage
-                  src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png"
-                  alt="profile"
-                />
-                <LogoutDesktopButton
-                  type="button"
+            <MenuItemsContainer dark={isDarkTheme} menu={isMenuItems}>
+              <Link to="/">
+                {' '}
+                <MenuItem id="HOME" key="HOME" dark={isDarkTheme}>
+                  Home
+                </MenuItem>
+              </Link>
+
+              <Link to="/trending">
+                <MenuItem id="TRENDING" key="TRENDING" dark={isDarkTheme}>
+                  Trending
+                </MenuItem>
+              </Link>
+
+              <Link to="/gaming">
+                <MenuItem id="GAMING" key="GAMING" dark={isDarkTheme}>
+                  Gaming
+                </MenuItem>
+              </Link>
+
+              <Link to="/saved-videos">
+                <MenuItem
+                  id="SAVED VIDEOS"
+                  key="SAVED VIDEOS"
                   dark={isDarkTheme}
-                  onClick={onClickLogout}
                 >
-                  Logout
-                </LogoutDesktopButton>
-              </ProfileLogoutDesktopContainer>
-            </IconsContainer>
-          </NavbarContainer>
+                  Saved Videos
+                </MenuItem>
+              </Link>
+            </MenuItemsContainer>
+          </>
         )
       }}
     </ThemeContext.Consumer>
