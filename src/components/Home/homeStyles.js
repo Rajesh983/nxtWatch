@@ -121,6 +121,53 @@ export const LoaderContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  max-width: 1000px;
+  width: inherit;
+`
+export const FailureContainer = styled.div`
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: inherit;
+  padding: 20px;
+`
+
+export const FailureImage = styled.img`
+  height: 200px;
+  width: 200px;
+`
+
+export const FailureHeading = styled.h1`
+  color: ${props => (props.dark ? '#ffffff' : '#1e293b')};
+  font-size: 16px;
+  font-weight: 500;
+  font-family: 'Roboto';
+  margin-bottom: 0;
+
+  @media screen and (min-width: 768px) {
+    font-size: 20px;
+  }
+`
+
+export const FailurePara = styled.p`
+  color: #909090;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: 'Roboto';
+  text-align: center;
+`
+
+export const FailureButton = styled.button`
+  border-width: 0;
+  background-color: #4f46e5;
+  font-size: 12px;
+  font-weight: 500;
+  font-family: 'Roboto';
+  color: #ffffff;
+  padding: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 75px;
+  border-radius: 3px;
 `

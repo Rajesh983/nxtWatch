@@ -30,6 +30,11 @@ import {
   SearchButton,
   LoaderContainer,
   HomeVideosListContainer,
+  FailureContainer,
+  FailureImage,
+  FailureHeading,
+  FailurePara,
+  FailureButton,
 } from './homeStyles'
 
 const apiStatusConstants = {
@@ -37,6 +42,7 @@ const apiStatusConstants = {
   inProgress: 'IN_PROGRESS',
   success: 'SUCCESS',
   failure: 'FAILURE',
+  isEmpty: 'EMPTY',
 }
 
 class Home extends Component {
@@ -84,6 +90,24 @@ class Home extends Component {
     </LoaderContainer>
   )
 
+  renderFailureView = theme => (
+    <FailureContainer>
+      <FailureImage
+        src={
+          theme
+            ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-dark-theme-img.png'
+            : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png'
+        }
+        alt="failure view"
+      />
+      <FailureHeading dark={theme}>Oops! Something Went Wrong</FailureHeading>
+      <FailurePara>
+        We are having some trouble to complete your request. Please try again.
+      </FailurePara>
+      <FailureButton type="button">Retry</FailureButton>
+    </FailureContainer>
+  )
+
   renderSuccessView = () => (
     <HomeVideosListContainer>Sucess View</HomeVideosListContainer>
   )
@@ -96,6 +120,8 @@ class Home extends Component {
         return this.renderLoader()
       case apiStatusConstants.success:
         return this.renderSuccessView()
+      case apiStatusConstants.isEmpty:
+        return this.renderNoVideosView()
       case apiStatusConstants.failure:
         return this.renderFailureView()
       default:
@@ -134,7 +160,7 @@ class Home extends Component {
                         <BiSearch color={isDarkTheme ? '#7e858e' : '#424242'} />
                       </SearchButton>
                     </SearchBoxAndButtonContainer>
-                    {this.renderLoader(isDarkTheme)}
+                    {this.renderFailureView(isDarkTheme)}
                   </ThumbnailsBgContainer>
                 </HomeContainer>
               </HomeBgContainer>
