@@ -109,34 +109,21 @@ const Header = props => {
             </NavbarContainer>
 
             <MenuItemsContainer dark={isDarkTheme} menu={isMenuItems}>
-              <Link to="/">
-                {' '}
-                <MenuItem id="HOME" key="HOME" dark={isDarkTheme}>
-                  Home
-                </MenuItem>
-              </Link>
+              <MenuItem id="HOME" key="HOME" dark={isDarkTheme}>
+                <Link to="/">Home</Link>
+              </MenuItem>
 
-              <Link to="/trending">
-                <MenuItem id="TRENDING" key="TRENDING" dark={isDarkTheme}>
-                  Trending
-                </MenuItem>
-              </Link>
+              <MenuItem id="TRENDING" key="TRENDING" dark={isDarkTheme}>
+                <Link to="/trending">Trending</Link>
+              </MenuItem>
 
-              <Link to="/gaming">
-                <MenuItem id="GAMING" key="GAMING" dark={isDarkTheme}>
-                  Gaming
-                </MenuItem>
-              </Link>
+              <MenuItem id="GAMING" key="GAMING" dark={isDarkTheme}>
+                <Link to="/gaming">Gaming</Link>
+              </MenuItem>
 
-              <Link to="/saved-videos">
-                <MenuItem
-                  id="SAVED VIDEOS"
-                  key="SAVED VIDEOS"
-                  dark={isDarkTheme}
-                >
-                  Saved Videos
-                </MenuItem>
-              </Link>
+              <MenuItem id="SAVED VIDEOS" key="SAVED VIDEOS" dark={isDarkTheme}>
+                <Link to="/saved-videos">Saved Videos</Link>
+              </MenuItem>
             </MenuItemsContainer>
           </>
         )

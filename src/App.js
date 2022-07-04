@@ -2,9 +2,11 @@ import './App.css'
 
 import {Component} from 'react'
 
-import {Route} from 'react-router-dom'
+import {Route, Switch} from 'react-router-dom'
 
 import ThemeContext from './context/ThemeContext'
+
+import ProtectedRoute from './components/ProtectedRoute'
 
 import LoginForm from './components/LoginForm'
 
@@ -39,8 +41,10 @@ class App extends Component {
           changeActiveTab: this.onChangingActiveTab,
         }}
       >
-        <Route exact path="/login" component={LoginForm} />
-        <Route exact path="/" component={Home} />
+        <Switch>
+          <Route exact path="/login" component={LoginForm} />
+          <ProtectedRoute exact path="/" component={Home} />
+        </Switch>
       </ThemeContext.Provider>
     )
   }

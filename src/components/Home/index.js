@@ -1,16 +1,20 @@
 import {Component} from 'react'
 
+import {Link} from 'react-router-dom'
+
 import Loader from 'react-loader-spinner'
+
+import Cookies from 'js-cookie'
 
 import {GrClose} from 'react-icons/gr'
 
 import {BiSearch} from 'react-icons/bi'
 
+import {formatDistanceToNowStrict} from 'date-fns'
+
 import Header from '../Header'
 
 import Sidebar from '../Sidebar'
-
-import HomeThumbnail from '../HomeThumbnail'
 
 import ThemeContext from '../../context/ThemeContext'
 
@@ -35,6 +39,17 @@ import {
   FailureHeading,
   FailurePara,
   FailureButton,
+  VideoListItem,
+  ThumbnailImage,
+  VideoDetailsContainer,
+  ChannelImage,
+  VideoTitleEtcContainer,
+  TitlePara,
+  CommonParaTag,
+  ChannelNameEtcContainer,
+  ViewsPublishedContainer,
+  DotSymbol,
+  PersistDot,
 } from './homeStyles'
 
 const apiStatusConstants = {
@@ -49,6 +64,73 @@ class Home extends Component {
   state = {
     apiStatus: apiStatusConstants.initial,
     isDisplayHomeBanner: true,
+    searchInput: '',
+    searchText: '',
+    videosList: [],
+  }
+
+  componentDidMount() {
+    this.getVideos()
+  }
+
+  getVideos = async () => {
+    this.setState({apiStatus: apiStatusConstants.inProgress})
+
+    const jwtToken = Cookies.get('jwt_token')
+
+    const {searchText} = this.state
+
+    const apiUrl = `https://apis.ccbp.in/videos/all?search=${searchText}`
+
+    const options = {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+      method: 'GET',
+    }
+
+    const response = await fetch(apiUrl, options)
+
+    if (response.ok) {
+      const data = await response.json()
+
+      const updatedVideosList = data.videos.map(eachVid => ({
+        channel: {
+          name: eachVid.channel.name,
+          profileImageUrl: eachVid.channel.profile_image_url,
+        },
+        id: eachVid.id,
+        publishedAt: eachVid.published_at,
+        thumbnailUrl: eachVid.thumbnail_url,
+        title: eachVid.title,
+        viewCount: eachVid.view_count,
+      }))
+
+      if (updatedVideosList.length === 0) {
+        this.setState({apiStatus: apiStatusConstants.isEmpty})
+      } else {
+        this.setState({
+          apiStatus: apiStatusConstants.success,
+          videosList: updatedVideosList,
+        })
+      }
+    } else {
+      this.setState({apiStatus: apiStatusConstants.failure})
+    }
+  }
+
+  onChangingSearchInput = event => {
+    this.setState({searchInput: event.target.value})
+  }
+
+  onClickSearchButton = () => {
+    const {searchInput} = this.state
+
+    this.setState({searchText: searchInput}, this.getVideos)
+  }
+
+  onRetryingVideos = () => {
+    this.getVideos()
   }
 
   onHidingBanner = () => {
@@ -73,14 +155,14 @@ class Home extends Component {
           src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
           alt="nxt watch logo"
         />
-        <BannerPara>But Nxt Watch Premium prepaid plans with UPI</BannerPara>
+        <BannerPara>Buy Nxt Watch Premium prepaid plans with UPI</BannerPara>
         <BannerButton type="button">GET IT NOW</BannerButton>
       </BannerContainer>
     )
   }
 
   renderLoader = theme => (
-    <LoaderContainer>
+    <LoaderContainer data-testid="loader">
       <Loader
         type="ThreeDots"
         color={theme ? '#ffffff' : ' #181818'}
@@ -104,26 +186,84 @@ class Home extends Component {
       <FailurePara>
         We are having some trouble to complete your request. Please try again.
       </FailurePara>
-      <FailureButton type="button">Retry</FailureButton>
+      <FailureButton type="button" onClick={this.onRetryingVideos}>
+        Retry
+      </FailureButton>
     </FailureContainer>
   )
 
-  renderSuccessView = () => (
-    <HomeVideosListContainer>Sucess View</HomeVideosListContainer>
+  renderNoVideosView = theme => (
+    <FailureContainer>
+      <FailureImage
+        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-search-results-img.png"
+        alt="no videos"
+      />
+      <FailureHeading dark={theme}>No Search results found</FailureHeading>
+      <FailurePara>Try different key words or remove search filter</FailurePara>
+      <FailureButton type="button" onClick={this.onRetryingVideos}>
+        Retry
+      </FailureButton>
+    </FailureContainer>
   )
 
-  renderFinalOutput = () => {
+  renderSuccessView = theme => {
+    const {videosList} = this.state
+
+    return (
+      <HomeVideosListContainer>
+        {videosList.map(eachVideo => (
+          <VideoListItem key={eachVideo.id}>
+            <Link
+              to={`/videos/${eachVideo.id}`}
+              style={{textDecoration: 'none'}}
+            >
+              <ThumbnailImage
+                src={eachVideo.thumbnailUrl}
+                alt="video thumbnail"
+              />
+              <VideoDetailsContainer>
+                <ChannelImage
+                  src={eachVideo.channel.profileImageUrl}
+                  alt="channel logo"
+                />
+                <VideoTitleEtcContainer>
+                  <TitlePara dark={theme}>{eachVideo.title}</TitlePara>
+
+                  <ChannelNameEtcContainer>
+                    <CommonParaTag>{eachVideo.channel.name}</CommonParaTag>
+                    <DotSymbol />
+                    <ViewsPublishedContainer>
+                      <CommonParaTag>{eachVideo.viewCount}</CommonParaTag>
+                      <PersistDot />
+                      <CommonParaTag>
+                        {formatDistanceToNowStrict(
+                          new Date(eachVideo.publishedAt),
+                          {addSuffix: true},
+                        )}
+                      </CommonParaTag>
+                    </ViewsPublishedContainer>
+                  </ChannelNameEtcContainer>
+                </VideoTitleEtcContainer>
+              </VideoDetailsContainer>
+            </Link>
+          </VideoListItem>
+        ))}
+      </HomeVideosListContainer>
+    )
+  }
+
+  renderFinalOutput = themeType => {
     const {apiStatus} = this.state
 
     switch (apiStatus) {
       case apiStatusConstants.inProgress:
-        return this.renderLoader()
+        return this.renderLoader(themeType)
       case apiStatusConstants.success:
-        return this.renderSuccessView()
+        return this.renderSuccessView(themeType)
       case apiStatusConstants.isEmpty:
-        return this.renderNoVideosView()
+        return this.renderNoVideosView(themeType)
       case apiStatusConstants.failure:
-        return this.renderFailureView()
+        return this.renderFailureView(themeType)
       default:
         return null
     }
@@ -134,7 +274,7 @@ class Home extends Component {
       <ThemeContext.Consumer>
         {value => {
           const {isDarkTheme} = value
-
+          const {searchInput} = this.state
           return (
             <>
               <Header />
@@ -151,16 +291,19 @@ class Home extends Component {
                         type="search"
                         placeholder="Search"
                         dark={isDarkTheme}
+                        value={searchInput}
+                        onChange={this.onChangingSearchInput}
                       />
                       <SearchButton
                         type="button"
                         data-testid="searchButton"
                         dark={isDarkTheme}
+                        onClick={this.onClickSearchButton}
                       >
                         <BiSearch color={isDarkTheme ? '#7e858e' : '#424242'} />
                       </SearchButton>
                     </SearchBoxAndButtonContainer>
-                    {this.renderFailureView(isDarkTheme)}
+                    {this.renderFinalOutput(isDarkTheme)}
                   </ThumbnailsBgContainer>
                 </HomeContainer>
               </HomeBgContainer>

@@ -40,81 +40,90 @@ const Sidebar = () => (
       return (
         <SidebarContainer dark={isDarkTheme}>
           <NavItemsListContainer>
-            <Link to="/" style={{textDecoration: 'none'}}>
-              <NavButton
-                type="button"
-                onClick={onChangeTab}
-                id="HOME"
-                activeBtn={homeTab}
-                dark={isDarkTheme}
-              >
-                {' '}
-                <NavItemContainer>
-                  <AiFillHome
-                    size="18"
-                    color={activeTab === 'HOME' ? '#ff0000' : '#909090'}
-                  />
-                  <NavItemText dark={isDarkTheme}>Home</NavItemText>
-                </NavItemContainer>
-              </NavButton>
-            </Link>
+            <NavButton
+              type="button"
+              onClick={onChangeTab}
+              id="HOME"
+              activeBtn={homeTab}
+              dark={isDarkTheme}
+            >
+              {' '}
+              <NavItemContainer key="HOME">
+                <AiFillHome
+                  size="18"
+                  color={activeTab === 'HOME' ? '#ff0000' : '#909090'}
+                />
+                <NavItemText dark={isDarkTheme}>
+                  <Link to="/" style={{textDecoration: 'none'}}>
+                    Home
+                  </Link>
+                </NavItemText>
+              </NavItemContainer>
+            </NavButton>
 
-            <Link to="/" style={{textDecoration: 'none'}}>
-              <NavButton
-                type="button"
-                onClick={onChangeTab}
-                id="TRENDING"
-                activeBtn={trendTab}
-                dark={isDarkTheme}
-              >
-                {' '}
-                <NavItemContainer>
-                  <HiFire
-                    size="18"
-                    color={activeTab === 'TRENDING' ? '#ff0000' : '#909090'}
-                  />
-                  <NavItemText dark={isDarkTheme}>Trending</NavItemText>
-                </NavItemContainer>
-              </NavButton>
-            </Link>
+            <NavButton
+              type="button"
+              onClick={onChangeTab}
+              id="TRENDING"
+              activeBtn={trendTab}
+              dark={isDarkTheme}
+            >
+              {' '}
+              <NavItemContainer key="TRENDING">
+                <HiFire
+                  size="18"
+                  color={activeTab === 'TRENDING' ? '#ff0000' : '#909090'}
+                />
+                <NavItemText dark={isDarkTheme}>
+                  {' '}
+                  <Link to="/trending" style={{textDecoration: 'none'}}>
+                    Trending
+                  </Link>
+                </NavItemText>
+              </NavItemContainer>
+            </NavButton>
 
-            <Link to="/" style={{textDecoration: 'none'}}>
-              <NavButton
-                type="button"
-                onClick={onChangeTab}
-                id="GAMING"
-                activeBtn={gameTab}
-                dark={isDarkTheme}
-              >
-                {' '}
-                <NavItemContainer>
-                  <SiYoutubegaming
-                    size="18"
-                    color={activeTab === 'GAMING' ? '#ff0000' : '#909090'}
-                  />
-                  <NavItemText dark={isDarkTheme}>Gaming</NavItemText>
-                </NavItemContainer>
-              </NavButton>
-            </Link>
+            <NavButton
+              type="button"
+              onClick={onChangeTab}
+              id="GAMING"
+              activeBtn={gameTab}
+              dark={isDarkTheme}
+            >
+              {' '}
+              <NavItemContainer key="GAMING">
+                <SiYoutubegaming
+                  size="18"
+                  color={activeTab === 'GAMING' ? '#ff0000' : '#909090'}
+                />
+                <NavItemText dark={isDarkTheme}>
+                  <Link to="/gaming" style={{textDecoration: 'none'}}>
+                    Gaming
+                  </Link>
+                </NavItemText>
+              </NavItemContainer>
+            </NavButton>
 
-            <Link to="/" style={{textDecoration: 'none'}}>
-              <NavButton
-                type="button"
-                onClick={onChangeTab}
-                id="SAVED VIDEOS"
-                activeBtn={savedTab}
-                dark={isDarkTheme}
-              >
-                {' '}
-                <NavItemContainer>
-                  <RiMenuAddLine
-                    size="18"
-                    color={activeTab === 'SAVED VIDEOS' ? '#ff0000' : '#909090'}
-                  />
-                  <NavItemText dark={isDarkTheme}>Saved videos</NavItemText>
-                </NavItemContainer>
-              </NavButton>
-            </Link>
+            <NavButton
+              type="button"
+              onClick={onChangeTab}
+              id="SAVED VIDEOS"
+              activeBtn={savedTab}
+              dark={isDarkTheme}
+            >
+              {' '}
+              <NavItemContainer key="SAVED VIDEOS">
+                <RiMenuAddLine
+                  size="18"
+                  color={activeTab === 'SAVED VIDEOS' ? '#ff0000' : '#909090'}
+                />
+                <NavItemText dark={isDarkTheme}>
+                  <Link to="/saved-videos" style={{textDecoration: 'none'}}>
+                    Saved videos
+                  </Link>
+                </NavItemText>
+              </NavItemContainer>
+            </NavButton>
           </NavItemsListContainer>
 
           <ContactInfoContainer>

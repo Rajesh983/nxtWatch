@@ -1,5 +1,7 @@
 import styled from 'styled-components'
 
+import {VscDebugStackframeDot} from 'react-icons/vsc'
+
 export const HomeBgContainer = styled.div`
   background-color: ${props => (props.dark ? '#181818' : '#f9f9f9')};
   min-height: 94vh;
@@ -73,7 +75,6 @@ export const ThumbnailsBgContainer = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 20px;
   width: 100%;
 `
 
@@ -82,6 +83,8 @@ export const SearchBoxAndButtonContainer = styled.div`
   align-items: center;
   border: 1.5px solid #909090;
   height: 28px;
+  margin-left: 12px;
+  margin-top: 20px;
 `
 
 export const SearchBox = styled.input`
@@ -113,6 +116,10 @@ export const SearchButton = styled.button`
 export const HomeVideosListContainer = styled.ul`
   list-style-type: none;
   padding-left: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 `
 
 export const LoaderContainer = styled.div`
@@ -170,4 +177,85 @@ export const FailureButton = styled.button`
   padding-right: 15px;
   width: 75px;
   border-radius: 3px;
+`
+
+export const VideoListItem = styled.li`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  margin-bottom: 10px;
+
+  @media screen and (min-width: 567px) {
+    width: 230px;
+    margin-right: 14px;
+    margin-bottom: 15px;
+  }
+`
+
+export const ThumbnailImage = styled.img`
+  height: 180px;
+  width: 300px;
+  margin-bottom: 10px;
+
+  @media screen and (min-width: 567px) {
+    width: 230px;
+    height: 150px;
+  }
+`
+
+export const VideoDetailsContainer = styled.div`
+  display: flex;
+`
+
+export const ChannelImage = styled.img`
+  height: 25px;
+  width: 25px;
+  border-radius: 80px;
+  margin-right: 7px;
+`
+
+export const VideoTitleEtcContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const TitlePara = styled.p`
+  font-family: 'Roboto';
+  font-size: 13px;
+  font-weight: 400;
+  color: ${props => (props.dark ? '#ffffff' : '#1e293b')};
+  padding-top: 0;
+  margin-top: 0;
+`
+
+export const CommonParaTag = styled.p`
+  font-family: 'Roboto';
+  font-size: 12px;
+  font-weight: 400;
+  color: #909090;
+  margin-top: 2px;
+`
+
+export const ChannelNameEtcContainer = styled.div`
+  display: flex;
+
+  @media screen and (min-width: 567px) {
+    display: flex;
+    flex-direction: column;
+  }
+`
+
+export const ViewsPublishedContainer = styled.div`
+  display: flex;
+`
+export const DotSymbol = styled(VscDebugStackframeDot)`
+  color: #909090;
+  @media screen and (min-width: 576px) {
+    display: none;
+  }
+`
+export const PersistDot = styled(VscDebugStackframeDot)`
+  color: #909090;
 `
