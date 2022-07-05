@@ -24,8 +24,8 @@ class App extends Component {
     isDark: false,
     isMenuItems: false,
     activeTab: 'HOME',
-    isLiked: false,
-    isDisliked: false,
+    likedVideos: [],
+    dislikedVideos: [],
     savedVideos: [],
   }
 
@@ -41,12 +41,30 @@ class App extends Component {
     this.setState({activeTab: id})
   }
 
-  onClickingLikeButton = () => {
-    this.setState({isLiked: true, isDisliked: false})
+  onClickingLikeButton = id => {
+    const {likedVideos} = this.state
+    const isContains = likedVideos.includes(id)
+
+    if (!isContains) {
+      this.setState(prevState => ({
+        likedVideos: [...prevState.likedVideos, id],
+        dislikedVideos: prevState.dislikedVideos.filter(
+          eachId => eachId !== id,
+        ),
+      }))
+    }
   }
 
-  onClickingDislikeButton = () => {
-    this.setState({isLiked: false, isDisliked: true})
+  onClickingDislikeButton = id => {
+    const {dislikedVideos} = this.state
+    const isContains = dislikedVideos.includes(id)
+
+    if (!isContains) {
+      this.setState(prevState => ({
+        likedVideos: prevState.likedVideos.filter(eachId => eachId !== id),
+        dislikedVideos: [...prevState.dislikedVideos, id],
+      }))
+    }
   }
 
   onAddingToSavedVideos = saveItem => {
@@ -71,12 +89,11 @@ class App extends Component {
       isDark,
       isMenuItems,
       activeTab,
-      isLiked,
-      isDisliked,
+      likedVideos,
+      dislikedVideos,
       savedVideos,
     } = this.state
 
-    console.log(savedVideos)
     return (
       <ThemeContext.Provider
         value={{
@@ -86,8 +103,8 @@ class App extends Component {
           showHideMenu: this.onShowHideMenu,
           activeTab,
           changeActiveTab: this.onChangingActiveTab,
-          isLiked,
-          isDisliked,
+          likedVideos,
+          dislikedVideos,
           changeLikeStatus: this.onClickingLikeButton,
           changeDislikeStatus: this.onClickingDislikeButton,
           savedVideos,

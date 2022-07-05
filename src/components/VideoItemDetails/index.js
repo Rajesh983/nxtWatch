@@ -148,8 +148,8 @@ class VideoItemDetails extends Component {
 
   renderSuccessView = (
     theme,
-    like,
-    dislike,
+    likedVideos,
+    dislikedVideos,
     changeLike,
     changeDislike,
     videosList,
@@ -162,13 +162,15 @@ class VideoItemDetails extends Component {
     )
 
     const save = videoIndex !== -1
+    const like = likedVideos.includes(videoDetails.id)
+    const dislike = dislikedVideos.includes(videoDetails.id)
 
     const onClickLike = () => {
-      changeLike()
+      changeLike(videoDetails.id)
     }
 
     const onClickDislike = () => {
-      changeDislike()
+      changeDislike(videoDetails.id)
     }
 
     const onClickSave = () => {
@@ -178,7 +180,7 @@ class VideoItemDetails extends Component {
         title: videoDetails.title,
         channelName: videoDetails.channel.name,
         viewCount: videoDetails.viewCount,
-        publishedAt: videoDetails.published_at,
+        publishedAt: videoDetails.publishedAt,
       })
     }
 
@@ -253,12 +255,12 @@ class VideoItemDetails extends Component {
         {value => {
           const {
             isDarkTheme,
-            isLiked,
-            isDisliked,
             changeLikeStatus,
             changeDislikeStatus,
             savedVideos,
             addToSavedVideos,
+            likedVideos,
+            dislikedVideos,
           } = value
 
           const renderFinalOutput = () => {
@@ -270,8 +272,8 @@ class VideoItemDetails extends Component {
               case apiStatusConstants.success:
                 return this.renderSuccessView(
                   isDarkTheme,
-                  isLiked,
-                  isDisliked,
+                  likedVideos,
+                  dislikedVideos,
                   changeLikeStatus,
                   changeDislikeStatus,
                   savedVideos,
