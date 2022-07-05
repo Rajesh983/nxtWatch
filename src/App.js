@@ -12,6 +12,12 @@ import LoginForm from './components/LoginForm'
 
 import Home from './components/Home'
 
+import Trending from './components/Trending'
+
+import Gaming from './components/Gaming'
+
+import VideoItemDetails from './components/VideoItemDetails'
+
 // Replace your code here
 class App extends Component {
   state = {isDark: false, isMenuItems: false, activeTab: 'HOME'}
@@ -44,6 +50,13 @@ class App extends Component {
         <Switch>
           <Route exact path="/login" component={LoginForm} />
           <ProtectedRoute exact path="/" component={Home} />
+          <ProtectedRoute exact path="/trending" component={Trending} />
+          <ProtectedRoute exact path="/gaming" component={Gaming} />
+          <ProtectedRoute
+            exact
+            path="/videos/:id"
+            component={VideoItemDetails}
+          />
         </Switch>
       </ThemeContext.Provider>
     )
