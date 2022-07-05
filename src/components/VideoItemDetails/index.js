@@ -1,6 +1,6 @@
 import {Component} from 'react'
 
-import {Link} from 'react-router-dom'
+import {formatDistanceToNowStrict} from 'date-fns'
 
 import Loader from 'react-loader-spinner'
 
@@ -22,13 +22,29 @@ import {
   FailureHeading,
   FailurePara,
   FailureButton,
-  VideoListItem,
-  ThumbnailImage,
   VideoDetailsContainer,
   VideoTitleEtcContainer,
   TitlePara,
   CommonParaTag,
   VideoPlayer,
+  VideoDescriptionDetailsContainer,
+  ViewsPublishedContainer,
+  LikeDislikeSaveContainer,
+  ButtonContainer,
+  DotSymbol,
+  LikeIcon,
+  DislikeIcon,
+  SaveIcon,
+  LikeLabel,
+  DislikeLabel,
+  SaveLabel,
+  HorizontalRule,
+  ChannelDetailsContainer,
+  ChannelImgNameContainer,
+  ChannelImage,
+  NameSubscriberContainer,
+  SubscribersPara,
+  DescriptionPara,
 } from './videoItemStyles'
 
 const apiStatusConstants = {
@@ -130,9 +146,42 @@ class VideoItemDetails extends Component {
     </FailureContainer>
   )
 
-  renderSuccessView = theme => {
+  renderSuccessView = (
+    theme,
+    like,
+    dislike,
+    changeLike,
+    changeDislike,
+    videosList,
+    savingVideo,
+  ) => {
     const {videoDetails} = this.state
-    console.log(videoDetails)
+
+    const videoIndex = videosList.findIndex(
+      eachVid => eachVid.id === videoDetails.id,
+    )
+
+    const save = videoIndex !== -1
+
+    const onClickLike = () => {
+      changeLike()
+    }
+
+    const onClickDislike = () => {
+      changeDislike()
+    }
+
+    const onClickSave = () => {
+      savingVideo({
+        id: videoDetails.id,
+        thumbnailUrl: videoDetails.thumbnailUrl,
+        title: videoDetails.title,
+        channelName: videoDetails.channel.name,
+        viewCount: videoDetails.viewCount,
+        publishedAt: videoDetails.published_at,
+      })
+    }
+
     return (
       <VideoDetailsContainer>
         <VideoPlayer
@@ -141,38 +190,111 @@ class VideoItemDetails extends Component {
           height="60%"
           controls
         />
+        <VideoTitleEtcContainer>
+          <TitlePara dark={theme}>{videoDetails.title}</TitlePara>
+          <VideoDescriptionDetailsContainer>
+            <ViewsPublishedContainer>
+              <CommonParaTag>{videoDetails.viewCount} views</CommonParaTag>
+              <DotSymbol />
+              <CommonParaTag>
+                {formatDistanceToNowStrict(new Date(videoDetails.publishedAt), {
+                  addSuffix: true,
+                })}
+              </CommonParaTag>
+            </ViewsPublishedContainer>
+            <LikeDislikeSaveContainer>
+              <ButtonContainer type="button" onClick={onClickLike}>
+                <LikeIcon like={like.toString()} />
+                <LikeLabel like={like.toString()}>Like</LikeLabel>
+              </ButtonContainer>
+
+              <ButtonContainer type="button" onClick={onClickDislike}>
+                <DislikeIcon dislike={dislike.toString()} />
+                <DislikeLabel dislike={dislike.toString()}>
+                  Dislike
+                </DislikeLabel>
+              </ButtonContainer>
+
+              <ButtonContainer type="button" onClick={onClickSave}>
+                <SaveIcon save={save.toString()} />
+                <SaveLabel save={save.toString()}>
+                  {save ? 'Saved' : 'Save'}
+                </SaveLabel>
+              </ButtonContainer>
+            </LikeDislikeSaveContainer>
+          </VideoDescriptionDetailsContainer>
+          <HorizontalRule />
+          <ChannelDetailsContainer>
+            <ChannelImgNameContainer>
+              <ChannelImage
+                src={videoDetails.channel.profileImageUrl}
+                alt="channel logo"
+              />
+
+              <NameSubscriberContainer>
+                <TitlePara dark={theme}>{videoDetails.channel.name}</TitlePara>
+                <SubscribersPara>
+                  {videoDetails.channel.subscriberCount} subscribers
+                </SubscribersPara>
+              </NameSubscriberContainer>
+            </ChannelImgNameContainer>
+            <DescriptionPara dark={theme}>
+              {videoDetails.description}
+            </DescriptionPara>
+          </ChannelDetailsContainer>
+        </VideoTitleEtcContainer>
       </VideoDetailsContainer>
     )
-  }
-
-  renderFinalOutput = themeType => {
-    const {apiStatus} = this.state
-
-    switch (apiStatus) {
-      case apiStatusConstants.inProgress:
-        return this.renderLoader(themeType)
-      case apiStatusConstants.success:
-        return this.renderSuccessView(themeType)
-      case apiStatusConstants.failure:
-        return this.renderFailureView(themeType)
-      default:
-        return null
-    }
   }
 
   render() {
     return (
       <ThemeContext.Consumer>
         {value => {
-          const {isDarkTheme} = value
+          const {
+            isDarkTheme,
+            isLiked,
+            isDisliked,
+            changeLikeStatus,
+            changeDislikeStatus,
+            savedVideos,
+            addToSavedVideos,
+          } = value
+
+          const renderFinalOutput = () => {
+            const {apiStatus} = this.state
+
+            switch (apiStatus) {
+              case apiStatusConstants.inProgress:
+                return this.renderLoader(isDarkTheme)
+              case apiStatusConstants.success:
+                return this.renderSuccessView(
+                  isDarkTheme,
+                  isLiked,
+                  isDisliked,
+                  changeLikeStatus,
+                  changeDislikeStatus,
+                  savedVideos,
+                  addToSavedVideos,
+                )
+              case apiStatusConstants.failure:
+                return this.renderFailureView(isDarkTheme)
+              default:
+                return null
+            }
+          }
+
           return (
             <>
               <Header />
-              <HomeBgContainer dark={isDarkTheme}>
+              <HomeBgContainer
+                dark={isDarkTheme}
+                data-testid="videoItemDetails"
+              >
                 <Sidebar />
                 <HomeContainer>
                   <ThumbnailsBgContainer>
-                    {this.renderFinalOutput(isDarkTheme)}
+                    {renderFinalOutput()}
                   </ThumbnailsBgContainer>
                 </HomeContainer>
               </HomeBgContainer>

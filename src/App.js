@@ -20,7 +20,14 @@ import VideoItemDetails from './components/VideoItemDetails'
 
 // Replace your code here
 class App extends Component {
-  state = {isDark: false, isMenuItems: false, activeTab: 'HOME'}
+  state = {
+    isDark: false,
+    isMenuItems: false,
+    activeTab: 'HOME',
+    isLiked: false,
+    isDisliked: false,
+    savedVideos: [],
+  }
 
   onChangingTheme = () => {
     this.setState(prevState => ({isDark: !prevState.isDark}))
@@ -34,8 +41,42 @@ class App extends Component {
     this.setState({activeTab: id})
   }
 
+  onClickingLikeButton = () => {
+    this.setState({isLiked: true, isDisliked: false})
+  }
+
+  onClickingDislikeButton = () => {
+    this.setState({isLiked: false, isDisliked: true})
+  }
+
+  onAddingToSavedVideos = saveItem => {
+    const {savedVideos} = this.state
+    const itemIndex = savedVideos.findIndex(
+      eachVid => eachVid.id === saveItem.id,
+    )
+    if (itemIndex === -1) {
+      this.setState(prevState => ({
+        savedVideos: [...prevState.savedVideos, saveItem],
+      }))
+    } else {
+      const filteredVideos = savedVideos.filter(
+        eachVid => eachVid.id !== saveItem.id,
+      )
+      this.setState({savedVideos: filteredVideos})
+    }
+  }
+
   render() {
-    const {isDark, isMenuItems, activeTab} = this.state
+    const {
+      isDark,
+      isMenuItems,
+      activeTab,
+      isLiked,
+      isDisliked,
+      savedVideos,
+    } = this.state
+
+    console.log(savedVideos)
     return (
       <ThemeContext.Provider
         value={{
@@ -45,6 +86,12 @@ class App extends Component {
           showHideMenu: this.onShowHideMenu,
           activeTab,
           changeActiveTab: this.onChangingActiveTab,
+          isLiked,
+          isDisliked,
+          changeLikeStatus: this.onClickingLikeButton,
+          changeDislikeStatus: this.onClickingDislikeButton,
+          savedVideos,
+          addToSavedVideos: this.onAddingToSavedVideos,
         }}
       >
         <Switch>
