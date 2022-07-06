@@ -12,7 +12,7 @@ export const HomeBgContainer = styled.div`
 `
 
 export const BannerContainer = styled.div`
-  display: ${props => (props.homeBanner ? 'flex' : 'none')};
+  display: flex;
   background-image: url('https://assets.ccbp.in/frontend/react-js/nxt-watch-banner-bg.png');
   flex-direction: column;
   background-size: cover;

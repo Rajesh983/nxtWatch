@@ -235,7 +235,7 @@ const Header = props => {
                       <LogoutPopupBgContainer>
                         <LogoutPopupContainer dark={isDarkTheme}>
                           <ConfirmPara dark={isDarkTheme}>
-                            Are you sure you want to logout?
+                            Are you sure, you want to logout
                           </ConfirmPara>
                           <PopupButtonsContainer>
                             <CommonButton
@@ -273,7 +273,7 @@ const Header = props => {
                       <LogoutPopupBgContainer>
                         <LogoutPopupContainer dark={isDarkTheme}>
                           <ConfirmPara dark={isDarkTheme}>
-                            Are you sure you want to logout?
+                            Are you sure, you want to logout
                           </ConfirmPara>
                           <PopupButtonsContainer>
                             <CommonButton

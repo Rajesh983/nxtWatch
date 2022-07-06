@@ -141,23 +141,29 @@ class Home extends Component {
     const {isDisplayHomeBanner} = this.state
 
     return (
-      <BannerContainer homeBanner={isDisplayHomeBanner} data-testid="banner">
-        <CloseButtonContainer>
-          <CloseButton
-            type="button"
-            data-testid="close"
-            onClick={this.onHidingBanner}
-          >
-            <GrClose />
-          </CloseButton>
-        </CloseButtonContainer>
-        <BannerImage
-          src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-          alt="nxt watch logo"
-        />
-        <BannerPara>Buy Nxt Watch Premium prepaid plans with UPI</BannerPara>
-        <BannerButton type="button">GET IT NOW</BannerButton>
-      </BannerContainer>
+      <>
+        {isDisplayHomeBanner && (
+          <BannerContainer data-testid="banner">
+            <CloseButtonContainer>
+              <CloseButton
+                type="button"
+                data-testid="close"
+                onClick={this.onHidingBanner}
+              >
+                <GrClose />
+              </CloseButton>
+            </CloseButtonContainer>
+            <BannerImage
+              src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
+              alt="nxt watch logo"
+            />
+            <BannerPara>
+              Buy Nxt Watch Premium prepaid plans with UPI
+            </BannerPara>
+            <BannerButton type="button">GET IT NOW</BannerButton>
+          </BannerContainer>
+        )}
+      </>
     )
   }
 

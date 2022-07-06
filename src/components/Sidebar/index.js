@@ -20,7 +20,6 @@ import {
   ContactInfoLogosContainer,
   ContactLogoImage,
   ContactInfoText,
-  NavButton,
 } from './sidebarStyles'
 
 const Sidebar = () => (
