@@ -181,6 +181,8 @@ class VideoItemDetails extends Component {
         channelName: videoDetails.channel.name,
         viewCount: videoDetails.viewCount,
         publishedAt: videoDetails.publishedAt,
+        profileImageUrl: videoDetails.channel.profileImageUrl,
+        videoUrl: videoDetails.videoUrl,
       })
     }
 
@@ -191,6 +193,7 @@ class VideoItemDetails extends Component {
           width="100%"
           height="60%"
           controls
+          playing
         />
         <VideoTitleEtcContainer>
           <TitlePara dark={theme}>{videoDetails.title}</TitlePara>

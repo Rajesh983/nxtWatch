@@ -278,7 +278,7 @@ class Home extends Component {
           return (
             <>
               <Header />
-              <HomeBgContainer dark={isDarkTheme}>
+              <HomeBgContainer dark={isDarkTheme} data-testid="home">
                 <Sidebar />
                 <HomeContainer>
                   <BannerHomeBgContainer>

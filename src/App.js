@@ -18,12 +18,13 @@ import Gaming from './components/Gaming'
 
 import VideoItemDetails from './components/VideoItemDetails'
 
+import SavedVideos from './components/SavedVideos'
+
 // Replace your code here
 class App extends Component {
   state = {
     isDark: false,
-    isMenuItems: false,
-    activeTab: 'HOME',
+    activeTab: 'INITIAL',
     likedVideos: [],
     dislikedVideos: [],
     savedVideos: [],
@@ -31,10 +32,6 @@ class App extends Component {
 
   onChangingTheme = () => {
     this.setState(prevState => ({isDark: !prevState.isDark}))
-  }
-
-  onShowHideMenu = () => {
-    this.setState(prevState => ({isMenuItems: !prevState.isMenuItems}))
   }
 
   onChangingActiveTab = id => {
@@ -87,7 +84,6 @@ class App extends Component {
   render() {
     const {
       isDark,
-      isMenuItems,
       activeTab,
       likedVideos,
       dislikedVideos,
@@ -99,8 +95,6 @@ class App extends Component {
         value={{
           isDarkTheme: isDark,
           changeTheme: this.onChangingTheme,
-          isMenuItems,
-          showHideMenu: this.onShowHideMenu,
           activeTab,
           changeActiveTab: this.onChangingActiveTab,
           likedVideos,
@@ -121,6 +115,7 @@ class App extends Component {
             path="/videos/:id"
             component={VideoItemDetails}
           />
+          <ProtectedRoute exact path="/saved-videos" component={SavedVideos} />
         </Switch>
       </ThemeContext.Provider>
     )

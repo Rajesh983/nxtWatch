@@ -41,79 +41,67 @@ const Sidebar = () => (
         <SidebarContainer dark={isDarkTheme}>
           <NavItemsListContainer>
             <Link to="/" style={{textDecoration: 'none'}}>
-              <NavButton
-                type="button"
+              <NavItemContainer
+                key="HOME"
                 onClick={onChangeTab}
                 id="HOME"
                 activeBtn={homeTab}
                 dark={isDarkTheme}
               >
-                {' '}
-                <NavItemContainer key="HOME">
-                  <AiFillHome
-                    size="18"
-                    color={activeTab === 'HOME' ? '#ff0000' : '#909090'}
-                  />
-                  <NavItemText dark={isDarkTheme}>Home</NavItemText>
-                </NavItemContainer>
-              </NavButton>
+                <AiFillHome
+                  size="18"
+                  color={activeTab === 'HOME' ? '#ff0000' : '#909090'}
+                />
+                <NavItemText dark={isDarkTheme}> Home</NavItemText>
+              </NavItemContainer>
             </Link>
 
             <Link to="/trending" style={{textDecoration: 'none'}}>
-              <NavButton
-                type="button"
+              <NavItemContainer
+                key="TRENDING"
                 onClick={onChangeTab}
                 id="TRENDING"
                 activeBtn={trendTab}
                 dark={isDarkTheme}
               >
-                {' '}
-                <NavItemContainer key="TRENDING">
-                  <HiFire
-                    size="18"
-                    color={activeTab === 'TRENDING' ? '#ff0000' : '#909090'}
-                  />
-                  <NavItemText dark={isDarkTheme}> Trending</NavItemText>
-                </NavItemContainer>
-              </NavButton>
+                <HiFire
+                  size="18"
+                  color={activeTab === 'TRENDING' ? '#ff0000' : '#909090'}
+                />
+                <NavItemText dark={isDarkTheme}> Trending</NavItemText>
+              </NavItemContainer>
             </Link>
 
             <Link to="/gaming" style={{textDecoration: 'none'}}>
-              <NavButton
-                type="button"
+              <NavItemContainer
+                key="GAMING"
                 onClick={onChangeTab}
                 id="GAMING"
                 activeBtn={gameTab}
                 dark={isDarkTheme}
               >
-                {' '}
-                <NavItemContainer key="GAMING">
-                  <SiYoutubegaming
-                    size="18"
-                    color={activeTab === 'GAMING' ? '#ff0000' : '#909090'}
-                  />
-                  <NavItemText dark={isDarkTheme}>Gaming</NavItemText>
-                </NavItemContainer>
-              </NavButton>
+                <SiYoutubegaming
+                  size="18"
+                  color={activeTab === 'GAMING' ? '#ff0000' : '#909090'}
+                />
+                <NavItemText dark={isDarkTheme}> Gaming</NavItemText>
+              </NavItemContainer>
             </Link>
 
             <Link to="/saved-videos" style={{textDecoration: 'none'}}>
-              <NavButton
-                type="button"
+              <NavItemContainer
+                key="SAVED VIDEOS"
                 onClick={onChangeTab}
                 id="SAVED VIDEOS"
                 activeBtn={savedTab}
                 dark={isDarkTheme}
               >
-                {' '}
-                <NavItemContainer key="SAVED VIDEOS">
-                  <RiMenuAddLine
-                    size="18"
-                    color={activeTab === 'SAVED VIDEOS' ? '#ff0000' : '#909090'}
-                  />
-                  <NavItemText dark={isDarkTheme}>Saved videos</NavItemText>
-                </NavItemContainer>
-              </NavButton>
+                <RiMenuAddLine
+                  size="18"
+                  color={activeTab === 'SAVED VIDEOS' ? '#ff0000' : '#909090'}
+                />
+                <NavItemText dark={isDarkTheme}> Saved videos</NavItemText>
+              </NavItemContainer>
             </Link>
           </NavItemsListContainer>
 

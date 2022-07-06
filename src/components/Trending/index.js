@@ -214,7 +214,7 @@ class Trending extends Component {
           return (
             <>
               <Header />
-              <HomeBgContainer dark={isDarkTheme}>
+              <HomeBgContainer dark={isDarkTheme} data-testid="trending">
                 <Sidebar />
                 <HomeContainer>
                   <ThumbnailsBgContainer>

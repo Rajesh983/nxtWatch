@@ -22,10 +22,21 @@ export const NavItemsListContainer = styled.ul`
 `
 
 export const NavItemContainer = styled.li`
+  background-color: ${props => {
+    if (props.dark && props.activeBtn) {
+      return '#383838'
+    }
+    if (props.dark === false && props.activeBtn) {
+      return '#f9f9f9'
+    }
+    return 'transparent'
+  }};
+  width: 100%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
+  height: 36px;
+  padding-left: 18px;
 `
 
 export const NavItemText = styled.p`
@@ -74,19 +85,4 @@ export const ContactInfoText = styled.p`
 `
 export const NavButton = styled.button`
   border-width: 0;
-  background-color: ${props => {
-    if (props.dark && props.activeBtn) {
-      return '#383838'
-    }
-    if (props.dark === false && props.activeBtn) {
-      return '#f9f9f9'
-    }
-    return 'transparent'
-  }};
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  height: 36px;
-  padding-left: 18px;
 `
